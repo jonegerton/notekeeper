@@ -13,7 +13,8 @@ object DataManager {
         var course = CourseInfo("android_intents", "Android Programming with Intents")
         courses.set(course.courseID, course)
 
-        course = CourseInfo(courseID = "android_async", title = "Android Async Programming and Services")
+        course =
+            CourseInfo(courseID = "android_async", title = "Android Async Programming and Services")
         courses.set(course.courseID, course)
 
         course = CourseInfo(title = "Java Fundamentals: The Java Language", courseID = "java_lang")
@@ -23,31 +24,76 @@ object DataManager {
         courses.set(course.courseID, course)
     }
 
-    private fun initializeNotes() {
-        var note = NoteInfo(courses["android_intents"] as CourseInfo, "Dynamic intent resolution", "Wow, intents allow components to be resolved at runtime")
+    fun initializeNotes() {
+        var note = NoteInfo(
+            courses["android_intents"] as CourseInfo,
+            "Dynamic intent resolution",
+            "Wow, intents allow components to be resolved at runtime"
+        )
         notes.add(note)
 
-        note = NoteInfo(courses["android_intents"] as CourseInfo, "Delegating intents", "PendingIntents are powerful; they delegate much more than just a component invocation")
+        note = NoteInfo(
+            courses["android_intents"] as CourseInfo,
+            "Delegating intents",
+            "PendingIntents are powerful; they delegate much more than just a component invocation"
+        )
         notes.add(note)
 
-        note = NoteInfo(courses["android_async"] as CourseInfo, "Service default threads", "Did you know that by default and Android Service will tie up the UI thread?")
+        note = NoteInfo(
+            courses["android_async"] as CourseInfo,
+            "Service default threads",
+            "Did you know that by default and Android Service will tie up the UI thread?"
+        )
         notes.add(note)
 
-        note = NoteInfo(courses["android_async"] as CourseInfo, "Long Running Operations", "Foreground Services can be tied to a notification icon")
+        note = NoteInfo(
+            courses["android_async"] as CourseInfo,
+            "Long Running Operations",
+            "Foreground Services can be tied to a notification icon"
+        )
         notes.add(note)
 
-        note = NoteInfo(courses["java_lang"] as CourseInfo, "Parameters", "Leverage variable-length parameter lists")
+        note = NoteInfo(
+            courses["java_lang"] as CourseInfo,
+            "Parameters",
+            "Leverage variable-length parameter lists"
+        )
         notes.add(note)
 
-        note = NoteInfo(courses["java_lang"] as CourseInfo, "Anonymous Classes", "Anonymous classes simplify implementing one-use types")
+        note = NoteInfo(
+            courses["java_lang"] as CourseInfo,
+            "Anonymous Classes",
+            "Anonymous classes simplify implementing one-use types"
+        )
         notes.add(note)
 
-        note = NoteInfo(courses["java_core"] as CourseInfo, "Compiler Options", "The -jar option isn't compatible with the -cp option")
+        note = NoteInfo(
+            courses["java_core"] as CourseInfo,
+            "Compiler Options",
+            "The -jar option isn't compatible with the -cp option"
+        )
         notes.add(note)
 
-        note = NoteInfo(courses["java_core"] as CourseInfo, "Serialization", "Remember to include SerialVersionUID to assure version compatibility")
+        note = NoteInfo(
+            courses["java_core"] as CourseInfo,
+            "Serialization",
+            "Remember to include SerialVersionUID to assure version compatibility"
+        )
         notes.add(note)
     }
 
+    fun addNote(course: CourseInfo, noteTitle: String, noteText: String): Int {
+        val note = NoteInfo(course, noteTitle, noteText)
+        notes.add(note)
+        return notes.lastIndex
+    }
 
+    fun findNote(course: CourseInfo, noteTitle: String, noteText: String) : NoteInfo? {
+        for (note in notes)
+            if (course == note.course &&
+                noteTitle == note.title &&
+                noteText == note.text)
+                return note
+        return null
+    }
 }

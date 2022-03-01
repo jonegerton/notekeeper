@@ -2,6 +2,7 @@ package com.ja2.notekeeper
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
@@ -9,6 +10,7 @@ import com.ja2.notekeeper.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    private val tag = this::class.simpleName
     private lateinit var binding: ActivityMainBinding
     private var notePosition = POSITION_NOT_SET
 
@@ -27,6 +29,8 @@ class MainActivity : AppCompatActivity() {
 
         notePosition = savedInstanceState?.getInt(NOTE_POSITION, POSITION_NOT_SET) ?:
             intent.getIntExtra(NOTE_POSITION, POSITION_NOT_SET)
+
+        Log.v(tag,"notePosition: $notePosition")
 
         if (notePosition != POSITION_NOT_SET) {
             displayNote()
